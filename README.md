@@ -5,11 +5,13 @@ A minimal FastMCP server for managing todos over the Model Context Protocol.
 ## Setup
 
 1. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Initialize the database:**
+
    ```bash
    python setup_db.py
    ```
@@ -37,4 +39,30 @@ The server will start on `http://localhost:8000`.
 - `tools.py` - MCP tool definitions
 - `setup_db.py` - Database initialization script
 - `todos.db` - SQLite database (created after setup)
+- `Dockerfile` - Docker configuration for Cloud Run deployment
 
+## Cloud Run Deployment
+
+1. **Build the Docker image:**
+
+   ```bash
+   docker build -t todo-mcp-server .
+   ```
+
+2. **Test locally:**
+
+   ```bash
+   docker run -p 8080:8080 -e PORT=8080 todo-mcp-server
+   ```
+
+3. **Deploy to Cloud Run:**
+
+   ```bash
+   gcloud run deploy todo-mcp-server \
+     --source . \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated
+   ```
+
+   Or use the Cloud Console to deploy from the Dockerfile.
