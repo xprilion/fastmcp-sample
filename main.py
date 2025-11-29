@@ -18,5 +18,5 @@ if __name__ == "__main__":
     # Get port from environment variable (Cloud Run requirement) or default to 8000
     port = int(os.getenv("PORT", 8000))
     
-    # Run the server
-    mcp.run(transport="http", port=port)
+    # Run the server - bind to 0.0.0.0 for Cloud Run compatibility
+    mcp.run(transport="http", host="0.0.0.0", port=port)
